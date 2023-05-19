@@ -81,12 +81,6 @@ public class MemberService implements UserDetailsService {
                 .password(member.getPassword())
                 .roles(member.getRole().toString())
                 .build();
-        System.out.println(" UserDetail 정보 :" + result.toString());
-//        UserDetail 정보 :org.springframework.security.core.userdetails.User
-//                [Username=test@gmail.com,
-//        Password=[PROTECTED], Enabled=true,
-//                AccountNonExpired=true, credentialsNonExpired=true,
-//                AccountNonLocked=true, Granted Authorities=[ROLE_USER]]
         return  result;
     }
 

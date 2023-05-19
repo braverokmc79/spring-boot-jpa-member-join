@@ -1,8 +1,9 @@
 package com.macaronics.service;
 
-import com.macaronics.constant.Role;
-import com.macaronics.dto.MemberFormDto;
-import com.macaronics.entity.Member;
+import static org.junit.jupiter.api.Assertions.*;
+
+import javax.transaction.Transactional;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,9 +11,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.TestPropertySource;
 
-import javax.transaction.Transactional;
-
-import static org.junit.jupiter.api.Assertions.*;
+import com.macaronics.constant.Role;
+import com.macaronics.dto.MemberFormDto;
+import com.macaronics.entity.Member;
 
 @SpringBootTest
 @Transactional

@@ -1,5 +1,6 @@
 package com.macaronics.entity;
 
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -9,21 +10,26 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import com.macaronics.constant.MemberStatus;
+import org.hibernate.annotations.Comment;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.macaronics.constant.Role;
 import com.macaronics.dto.MemberFormDto;
+
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
-import lombok.Setter;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
-import org.hibernate.annotations.Comment;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Entity
 @Table(name="member")
 @Getter
-@Setter
+@Builder
 @ToString
+@AllArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Member {
 
     @Id
@@ -35,7 +41,7 @@ public class Member {
     @Comment("회원이름")
     private String name;
 
-    @Column(unique = true)
+    @Column(nullable = false,unique = true)
     @Comment("이메일")
     private String email; 
     
@@ -48,19 +54,21 @@ public class Member {
     @Enumerated(EnumType.STRING)
     private Role role;
     
-    public static Member createMember(MemberFormDto memberFormDto, PasswordEncoder passwordEncoder, Role state){
-        Member member=new Member();
-        member.setName(memberFormDto.getName());
-        member.setEmail(memberFormDto.getEmail());
-        member.setAddress(memberFormDto.getAddress());
-        String password=passwordEncoder.encode(memberFormDto.getPassword());
-        member.setPassword(password);
-        member.setRole(state);
-        return member;
+    
+    public void passwordEncode(String password , PasswordEncoder passwordEncoder) {
+    	this.password=passwordEncoder.encode(password);
     }
     
+    public static Member createMember(MemberFormDto memberFormDto, PasswordEncoder passwordEncoder, Role state){
+    	return Member.builder()
+    	.name(memberFormDto.getName())
+    	.email(memberFormDto.getEmail())
+    	.address(memberFormDto.getAddress())
+        .password(passwordEncoder.encode(memberFormDto.getPassword()))
+        .role(state)
+    	.build();
 
-
-
+    }
+    
 
 }

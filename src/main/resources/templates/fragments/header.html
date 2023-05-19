@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
-<div th:fragment="header">
+<div th:fragment="header" class="header">
 	<nav class="navbar  bg-dark color-white">
 		<ul class="nav nav-dark">
 		
@@ -10,7 +10,7 @@
 				<a class="nav-link" href="/">홈</a>
 			</li>
 
-			<li class="nav-item" sec:authorize="hasAnyAuthority('ROLE_ADMIN')">
+			<li class="nav-item" sec:authorize="hasAnyAuthority('ROLE_ADMIN' ,'ROLE_MANAGER')">
 				<a class="nav-link" href="/admin/">관리자페이지</a>
 			</li>
 			
